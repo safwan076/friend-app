@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: friend_app_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: friend_app_db
+      POSTGRES_USER: friend_user
+      POSTGRES_PASSWORD: friend_secure_password_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/init_postgis.sql:/docker-entrypoint-initdb.d/init_postgis.sql
+
+  redis:
+    image: redis:7-alpine
+    container_name: friend_app_redis
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  livekit:
+    image: livekit/livekit-server:v1.7.2
+    container_name: friend_app_livekit
+    restart: always
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7880:7880" # WebRTC HTTP / Signaling
+      - "7881:7881" # WebRTC TCP
+      - "7882:7882/udp" # WebRTC UDP
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: friend_app_backend
+    restart: always
+    environment:
+      DATABASE_URL: postgresql+asyncpg://friend_user:friend_secure_password_2026@postgres:5432/friend_app_db
+      REDIS_URL: redis://redis:6379/0
+      JWT_SECRET: super_secure_friend_app_jwt_secret_key_9876543210
+      LIVEKIT_API_KEY: devkey
+      LIVEKIT_API_SECRET: secret
+      LIVEKIT_URL: http://livekit:7880
+      ENCRYPTION_KEY: friend_app_32byte_aes_gcm_secret_key!
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+      - livekit
+
+volumes:
+  postgres_data:
+  redis_data:

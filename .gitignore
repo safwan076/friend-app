@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+env/
+venv/
+
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Docker data mounts
+postgres_data/
+redis_data/
+
+# Android
+.gradle/
+build/
+android/build/
+android/app/build/
+local.properties
+*.apk
+*.aab
+
+# iOS
+*.xcuserstate
+project.xcworkspace/xcuserdata/
+xcuserdata/
+DerivedData/
+Pods/
+
+# IDEs & System
+.idea/
+.vscode/
+*.swp
+*.DS_Store
+Thumbs.db

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>FriendApp</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.friendapp.ios</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    
+    <!-- Privacy Descriptions -->
+    <key>NSCameraUsageDescription</key>
+    <string>Friend App needs camera access for random video calls and celebrity video chats.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Friend App needs microphone access for crystal-clear voice and video calling.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Friend App needs your location to discover and plan events nearby.</string>
+    
+    <!-- Background VoIP Modes for Native Lock-Screen Incoming Calls -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>voip</string>
+        <string>audio</string>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
+</dict>
+</plist>
